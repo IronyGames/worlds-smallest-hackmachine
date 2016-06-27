@@ -24,11 +24,6 @@ public class PlayerColorManager : MonoBehaviour
 		turnUnclicked ();
 	}
 
-	public void setInput (float axis)
-	{
-
-	}
-
 	public void asyncUpdate ()
 	{
 		processUpdate ();

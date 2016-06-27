@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
 	private MeshRenderer thisMesh;
 	private PlayerSpellchecker spellManager;
+	private PlayerColorManager colorManager;
 
 	void Start ()
 	{
 		spellManager = GetComponent<PlayerSpellchecker> ();
+		colorManager = GetComponent<PlayerColorManager> ();
 		spellManager.reset ();
 	}
 
@@ -17,10 +20,11 @@ public class PlayerController : MonoBehaviour
 		if (Input.GetKey ("escape")) {
 			Application.Quit ();
 		}
-		if (!spellManager.wasListCompleted ()) {
-			spellManager.asyncUpdate ();
-		}
 
+		if (spellManager.wasListCompleted () && !colorManager.isCurrentlyClicking ()) {
+			SceneManager.LoadScene ("Ending");
+		} 
+		spellManager.asyncUpdate ();
 	}
 }
 

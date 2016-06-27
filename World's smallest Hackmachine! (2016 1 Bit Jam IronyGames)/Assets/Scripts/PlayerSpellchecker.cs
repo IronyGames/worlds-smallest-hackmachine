@@ -31,7 +31,7 @@ public class PlayerSpellchecker : MonoBehaviour
 	public void checkInput ()
 	{
 		if (!colorManager.isCurrentlyClicking ()) {
-			if (Input.anyKeyDown) {
+			if (Input.anyKeyDown && !wasMouseJustDown ()) {
 				string c = getCurrentLetter ().ToString ();
 				if (Input.GetKeyDown (c.ToLower ())) {
 					setNextLetter ();
@@ -45,15 +45,16 @@ public class PlayerSpellchecker : MonoBehaviour
 		}
 	}
 
+	private bool wasMouseJustDown ()
+	{
+		return Input.GetMouseButtonDown (0) ||
+		Input.GetMouseButtonDown (1) ||
+		Input.GetMouseButtonDown (2);
+	}
+
 	public void asyncUpdate ()
 	{
 		checkInput ();
-
-	}
-
-	public void getResults ()
-	{
-
 	}
 
 	private void setCurrentWord ()
